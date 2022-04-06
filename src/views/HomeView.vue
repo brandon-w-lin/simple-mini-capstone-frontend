@@ -1,18 +1,24 @@
+<script>
+export default {
+  data: function () {
+    return {
+      message: "Welcome to Vue.js!",
+      display: false,
+      products: [
+        { id: 1, name: "Pillow", price: 25 },
+        { id: 2, name: "Chair", price: 100 },
+      ],
+    };
+  },
+  created: function () {},
+  methods: {},
+};
+</script>
+
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <p v-for="product in products" :key="product.id">{{ product.name }}</p>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
-export default {
-  name: "HomeView",
-  components: {
-    HelloWorld,
-  },
-};
-</script>
+<style></style>
