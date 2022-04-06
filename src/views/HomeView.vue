@@ -7,6 +7,7 @@ export default {
       message: "Welcome to Vue.js!",
       display: false,
       products: [],
+      createProductParams: {},
     };
   },
   created: function () {
@@ -18,12 +19,43 @@ export default {
         this.products = response.data;
       });
     },
+    createProduct: function () {
+      // var params = {
+      //   name: "abcde",
+      //   description: "test description",
+      //   image_url: "https://dynaimage.cdn.cnn.com/cnn/digital-images/org/98224ac3-aedc-44d4-9ad2-a6b8b0c06e2c.jpg",
+      //   price: 5,
+      // };
+
+      var params = {
+        name: this.createProductParams.name,
+        description: this.createProductParams.description,
+        image_url: this.createProductParams.image_url,
+        price: this.createProductParams.price,
+      };
+
+      axios.post("http://localhost:3000/products.json", params).then((response) => {
+        this.products.push(response.data);
+      });
+    },
   },
 };
 </script>
 
 <template>
   <div class="home">
+    <div>
+      name:
+      <input type="text" v-model="createProductParams.name" placeholder="name" />
+      description:
+      <input type="text" v-model="createProductParams.description" placeholder="description" />
+      image_url:
+      <input type="text" v-model="createProductParams.image_url" placeholder="image_url" />
+      price:
+      <input type="number" v-model="createProductParams.price" placeholder="price" />
+
+      <button v-on:click="createProduct()">create a product</button>
+    </div>
     <div v-for="product in products" :key="product.id">
       <div class="productBlock">
         <h1>
